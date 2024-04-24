@@ -1,11 +1,15 @@
-import { Contacts } from "../types/Contacts";
+import { Contact } from "../types/Contact";
 
-export const ContactInfo = ({ id, name, phoneNumber }: Contacts) => {
+type Props = {
+  contact: Contact;
+};
+
+export const ContactInfo = ({ contact }: Props) => {
   return (
     <ul>
-      <li>{id}</li>
-      <li>{name}</li>
-      <li>{phoneNumber}</li>
+      <li>{contact.id}</li>
+      <li>{contact.name}</li>
+      <li>{contact.phoneNumber}</li>
     </ul>
   );
 };

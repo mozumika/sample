@@ -2,16 +2,18 @@ import { useGetContacts } from "../api/getContacts";
 import { ContactInfo } from "./ContactInfo";
 
 export const ContactList = () => {
-  const { data } = useGetContacts();
+  const { data, status } = useGetContacts();
 
-  return data?.map((info) => {
-    return (
-      <ContactInfo
-        key={info.id}
-        id={info.id}
-        name={info.name}
-        phoneNumber={info.phoneNumber}
-      />
-    );
-  });
+  if (status === "pending") return <div>Loading...</div>;
+  if (status === "error") return <div>Error</div>;
+
+  return (
+    <ol>
+      {data.map((contact) => (
+        <li key={contact.id}>
+          <ContactInfo contact={contact} />
+        </li>
+      ))}
+    </ol>
+  );
 };
