@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { IconContext } from "react-icons";
 import {
   AiOutlineArrowLeft,
   AiOutlineDelete,
@@ -26,9 +25,7 @@ export const IconButton = ({ iconType, className, ...props }: Props) => {
 
   return (
     <button type="button" {...props}>
-      <IconContext.Provider value={{ className: clsx(styles.icon, className) }}>
-        <Icon aria-label={iconType} />
-      </IconContext.Provider>
+      <Icon className={clsx(styles.icon, className)} aria-label={iconType} />
     </button>
   );
 };

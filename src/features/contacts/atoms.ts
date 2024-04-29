@@ -7,6 +7,6 @@ export const emptyContact: Contact = {
   phoneNumber: "",
 };
 
-export const contactAtom = atom<Contact>(emptyContact);
+export const contactAtom = atom<Contact | null>(null);
 
 export const workingAtom = atom(false);

@@ -38,7 +38,7 @@ export const ContactInfoForm = () => {
   } = methods;
 
   const onSubmit: SubmitHandler<ContactInfoFormSchemaType> = (data) => {
-    const submitData = { ...data, id: contact.id };
+    const submitData = { ...data, id: contact?.id };
     // TODO setWorking
     if (!submitData.id) {
       console.log(`add ${JSON.stringify(submitData)}`); // TODO Add
@@ -46,6 +46,14 @@ export const ContactInfoForm = () => {
       console.log(`update ${JSON.stringify(submitData)}`); // TODO Update
     }
   };
+
+  if (!contact) {
+    return (
+      <div className={styles.errorMessage}>
+        <span>データが見つかりません</span>
+      </div>
+    );
+  }
 
   return (
     <>
