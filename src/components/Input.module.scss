@@ -1,0 +1,12 @@
+@import "../styles/variables.scss";
+
+.input {
+  font-size: $font-size-m;
+  border: $border-common;
+  height: 3rem;
+  padding: 0.5rem;
+  width: 100%;
+  &:focus {
+    outline: 1px solid;
+  }
+}

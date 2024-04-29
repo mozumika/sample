@@ -1,4 +1,8 @@
+import React from "react";
+import clsx from "clsx";
+import { IconContext } from "react-icons";
 import {
+  AiOutlineArrowLeft,
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlinePlusCircle,
@@ -6,26 +10,25 @@ import {
 
 import styles from "./IconButton.module.scss";
 
-type Props = {
-  iconType: "add" | "edit" | "delete";
-  disabled: boolean;
-  onClick: () => void;
-};
-
 const iconTypes = {
   add: AiOutlinePlusCircle,
   edit: AiOutlineEdit,
   delete: AiOutlineDelete,
+  back: AiOutlineArrowLeft,
 };
 
-export const IconButton = ({ iconType, disabled, onClick }: Props) => {
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  iconType: keyof typeof iconTypes;
+};
+
+export const IconButton = ({ iconType, className, ...props }: Props) => {
   const Icon = iconTypes[iconType];
 
   return (
-    <Icon
-      className={`${styles.icon} ${disabled ? styles.disabled : ""}`}
-      onClick={onClick}
-      aria-label={iconType}
-    />
+    <button type="button" {...props}>
+      <IconContext.Provider value={{ className: clsx(styles.icon, className) }}>
+        <Icon aria-label={iconType} />
+      </IconContext.Provider>
+    </button>
   );
 };

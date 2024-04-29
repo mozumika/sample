@@ -8,15 +8,11 @@ import { IconButton } from "../../../components/IconButton";
 
 type Props = {
   contact: Contact;
-  handleClickEdit: (contact: Contact) => void;
-  handleClickDelete: (id: string) => void;
+  onEdit: (contact: Contact) => void;
+  onDelete: (id: string) => void;
 };
 
-export const ContactInfo = ({
-  contact,
-  handleClickEdit,
-  handleClickDelete,
-}: Props) => {
+export const ContactInfo = ({ contact, onEdit, onDelete }: Props) => {
   const isWorking = useAtomValue(workingAtom);
 
   return (
@@ -28,12 +24,12 @@ export const ContactInfo = ({
       <div className={styles.buttonArea}>
         <IconButton
           iconType="edit"
-          onClick={() => handleClickEdit(contact)}
+          onClick={() => onEdit(contact)}
           disabled={isWorking}
         />
         <IconButton
           iconType="delete"
-          onClick={() => handleClickDelete(contact.id)}
+          onClick={() => onDelete(contact.id)}
           disabled={isWorking}
         />
       </div>
