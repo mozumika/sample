@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 
-import { useCreateContact } from "../api/createContact";
-import { useUpdateContact } from "../api/updateContact";
-import { contactAtom, workingAtom } from "../atoms";
+import { createContact, updateContact } from "../api";
+import { contactAtom } from "../atoms";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 
@@ -29,37 +28,31 @@ export const ContactInfoForm = () => {
   const nameId = useId();
   const phoneNumberId = useId();
   const contact = useAtomValue(contactAtom);
-  const [isWorking, setWorking] = useAtom(workingAtom);
-  const createContactMutation = useCreateContact();
-  const updateContactMutation = useUpdateContact();
   const navigate = useNavigate();
 
   const methods = useForm<ContactInfoFormSchemaType>({
     resolver: zodResolver(contactInfoFormSchema),
   });
+  const isSubmitting = useForm().formState.isSubmitting;
 
   const {
     handleSubmit,
     formState: { errors },
+    setError,
   } = methods;
 
-  const options = {
-    onSuccess: () => {
-      navigate("/contacts");
-    },
-    onSettled: () => {
-      setWorking(false);
-    },
-  };
-
   const onSubmit: SubmitHandler<ContactInfoFormSchemaType> = (data) => {
-    setWorking(true);
     const submitData = { ...data, id: contact?.id ?? "" };
-    if (!submitData.id) {
-      createContactMutation.mutate(submitData, options);
-    } else {
-      updateContactMutation.mutate(submitData, options);
-    }
+    const submitFunction = submitData.id
+      ? updateContact(submitData)
+      : createContact(submitData);
+    submitFunction
+      .then(() => {
+        navigate("/contacts");
+      })
+      .catch(() => {
+        setError("root.common", { type: "common" });
+      });
   };
 
   if (!contact) {
@@ -103,11 +96,11 @@ export const ContactInfoForm = () => {
             </div>
           </main>
           <footer className={styles.footer}>
-            <Button type="submit" disabled={isWorking}>
+            <Button type="submit" disabled={isSubmitting}>
               OK
             </Button>
           </footer>
-          {(createContactMutation.error || updateContactMutation.error) && (
+          {errors.root?.common && (
             <div className={styles.errorMessage}>
               <span>更新に失敗しました</span>
             </div>

@@ -8,5 +8,3 @@ export const emptyContact: Contact = {
 };
 
 export const contactAtom = atom<Contact | null>(null);
-
-export const workingAtom = atom(false);

@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useAtom, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 
-import { useGetContacts } from "../api/getContacts";
-import { useDeleteContact } from "../api/deleteContact";
-import { contactAtom, emptyContact, workingAtom } from "../atoms";
+import { useGetContacts, useDeleteContact } from "../api";
+import { contactAtom, emptyContact } from "../atoms";
 import { ContactInfo } from "./ContactInfo";
 import { IconButton } from "../../../components/IconButton";
 import { Contact } from "../types/Contact";
@@ -15,7 +14,6 @@ const MAX_CONTACTS = 20;
 export const ContactList = () => {
   const { data, status } = useGetContacts();
 
-  const [isWorking, setWorking] = useAtom(workingAtom);
   const setCurrentContact = useSetAtom(contactAtom);
   const deleteContactMutation = useDeleteContact();
   const navigate = useNavigate();
@@ -31,8 +29,9 @@ export const ContactList = () => {
   };
 
   const handleClickDelete = (id: string) => {
-    setWorking(true);
-    deleteContactMutation.mutate(id, { onSettled: () => setWorking(false) });
+    deleteContactMutation.mutate(id, {
+      onError: () => alert("データ削除に失敗しました"),
+    });
   };
 
   return (
@@ -46,7 +45,10 @@ export const ContactList = () => {
             <IconButton
               iconType="add"
               onClick={handleClickAdd}
-              disabled={isWorking || (data && data.length >= MAX_CONTACTS)}
+              disabled={
+                deleteContactMutation.isPending ||
+                (data && data.length >= MAX_CONTACTS)
+              }
             />
           </div>
           <div className={styles.contactList}>
@@ -64,6 +66,7 @@ export const ContactList = () => {
                     contact={contact}
                     onEdit={handleClickEdit}
                     onDelete={handleClickDelete}
+                    isWorking={deleteContactMutation.isPending}
                   />
                 ))}
               </ol>
