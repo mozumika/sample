@@ -33,20 +33,19 @@ export const ContactInfoForm = () => {
   const methods = useForm<ContactInfoFormSchemaType>({
     resolver: zodResolver(contactInfoFormSchema),
   });
-  const isSubmitting = useForm().formState.isSubmitting;
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, errors },
     setError,
   } = methods;
 
   const onSubmit: SubmitHandler<ContactInfoFormSchemaType> = (data) => {
     const submitData = { ...data, id: contact?.id ?? "" };
-    const submitFunction = submitData.id
+    const submitPromise = submitData.id
       ? updateContact(submitData)
       : createContact(submitData);
-    submitFunction
+    submitPromise
       .then(() => {
         navigate("/contacts");
       })
