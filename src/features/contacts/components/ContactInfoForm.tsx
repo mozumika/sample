@@ -69,28 +69,34 @@ export const ContactInfoForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <main className={styles.main}>
             <div className={styles.formItem}>
-              <label htmlFor={nameId}>名前 : </label>
+              <label htmlFor={`${nameId}-input`}>名前 : </label>
               <div>
                 <Input
                   maxLength={50}
                   defaultValue={contact.name}
                   name="name"
-                  aria-describedby={nameId}
+                  id={`${nameId}-input`}
+                  aria-describedby={`${nameId}-errorMessage`}
                 />
-                {errors.name && <p id={nameId}>{errors.name.message}</p>}
+                {errors.name && (
+                  <p id={`${nameId}-errorMessage`}>{errors.name.message}</p>
+                )}
               </div>
             </div>
             <div className={styles.formItem}>
-              <label htmlFor={phoneNumberId}>TEL : </label>
+              <label htmlFor={`${phoneNumberId}-input`}>TEL : </label>
               <div>
                 <Input
                   maxLength={13}
                   defaultValue={contact.phoneNumber}
                   name="phoneNumber"
-                  aria-describedby={phoneNumberId}
+                  id={`${phoneNumberId}-input`}
+                  aria-describedby={`${phoneNumberId}-errorMessage`}
                 ></Input>
                 {errors.phoneNumber && (
-                  <p id={phoneNumberId}>{errors.phoneNumber.message}</p>
+                  <p id={`${phoneNumberId}-errorMessage`}>
+                    {errors.phoneNumber.message}
+                  </p>
                 )}
               </div>
             </div>
