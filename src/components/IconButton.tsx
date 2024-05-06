@@ -25,7 +25,10 @@ export const IconButton = ({ iconType, className, ...props }: Props) => {
 
   return (
     <button type="button" {...props}>
-      <Icon className={clsx(styles.icon, className)} aria-label={iconType} />
+      <Icon
+        className={clsx(styles.icon, className ? styles[className] : "")}
+        aria-label={iconType}
+      />
     </button>
   );
 };

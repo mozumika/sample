@@ -9,7 +9,7 @@ export const Input = ({ className, name, ...props }: Props) => {
   const { register } = useFormContext();
   return (
     <input
-      className={clsx(styles.input, className)}
+      className={clsx(styles.input, className ? styles[className] : "")}
       {...register(name ?? "")}
       {...props}
     />
