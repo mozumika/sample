@@ -10,7 +10,8 @@
     "lint:style": "stylelint src/**/*.{css,scss}",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@hookform/resolvers": "3.3.4",
@@ -35,6 +36,7 @@
     "@storybook/react": "8.0.9",
     "@storybook/react-vite": "8.0.9",
     "@storybook/test": "8.0.9",
+    "@storybook/test-runner": "0.17.0",
     "@tanstack/eslint-plugin-query": "5.28.11",
     "@types/react": "18.2.66",
     "@types/react-dom": "18.2.22",
