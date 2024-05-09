@@ -32,13 +32,13 @@ export const Delete: Story = {
 export const Small: Story = {
   args: {
     ...Add.args,
-    className: "icon-small",
+    size: "sm",
   },
 };
 
 export const Large: Story = {
   args: {
     ...Add.args,
-    className: "icon-large",
+    size: "lg",
   },
 };

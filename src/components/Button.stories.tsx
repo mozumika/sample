@@ -28,13 +28,13 @@ export const WithLongText: Story = {
 export const Small: Story = {
   args: {
     ...Default.args,
-    className: "button-small",
+    size: "sm",
   },
 };
 
 export const Large: Story = {
   args: {
     ...Default.args,
-    className: "button-large",
+    size: "lg",
   },
 };
