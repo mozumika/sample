@@ -68,7 +68,7 @@ export const ContactInfoForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <main className={styles.main}>
             <div className={styles.formItem}>
-              <label htmlFor={`${nameId}-input`}>名前 : </label>
+              <label htmlFor={`${nameId}-input`}>名前 :</label>
               <div>
                 <Input
                   maxLength={50}
@@ -83,7 +83,7 @@ export const ContactInfoForm = () => {
               </div>
             </div>
             <div className={styles.formItem}>
-              <label htmlFor={`${phoneNumberId}-input`}>TEL : </label>
+              <label htmlFor={`${phoneNumberId}-input`}>TEL :</label>
               <div>
                 <Input
                   maxLength={13}

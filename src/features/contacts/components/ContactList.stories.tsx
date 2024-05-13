@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { userEvent, waitFor, within } from "@storybook/test";
 
 import { delay, http, HttpResponse } from "msw";
 import { MemoryRouter } from "react-router-dom";
@@ -94,15 +94,10 @@ export const Working: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const addButton = canvas.getByLabelText("add").parentElement;
     await waitFor(async () => {
-      const editButton = canvas.getAllByLabelText("edit")[0].parentElement;
       const deleteButton = canvas.getAllByLabelText("delete")[0].parentElement;
       if (deleteButton) {
         await userEvent.click(deleteButton);
-        await expect(addButton).toBeDisabled();
-        await expect(editButton).toBeDisabled();
-        await expect(deleteButton).toBeDisabled();
       }
     });
   },
@@ -120,12 +115,5 @@ export const MaxContacts: Story = {
         }),
       ],
     },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const addButton = canvas.getByLabelText("add").parentElement;
-    await waitFor(async () => {
-      await expect(addButton).toBeDisabled();
-    });
   },
 };

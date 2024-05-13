@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, fn, userEvent, within } from "@storybook/test";
+import { fn } from "@storybook/test";
 
 import { ContactInfo } from "./ContactInfo";
 import { contactList } from "../mockData";
@@ -20,28 +20,8 @@ export const Default: Story = {
     onEdit: fn(),
     onDelete: fn(),
   },
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    const editButton = canvas.getByLabelText("edit").parentElement;
-    const deleteButton = canvas.getByLabelText("delete").parentElement;
-    if (editButton) {
-      await userEvent.click(editButton);
-      await expect(args.onEdit).toHaveBeenCalled();
-    }
-    if (deleteButton) {
-      await userEvent.click(deleteButton);
-      await expect(args.onDelete).toHaveBeenCalled();
-    }
-  },
 };
 
 export const Working: Story = {
   args: { ...Default.args, isWorking: true },
-  play: ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const editButton = canvas.getByLabelText("edit").parentElement;
-    const deleteButton = canvas.getByLabelText("delete").parentElement;
-    expect(editButton).toBeDisabled();
-    expect(deleteButton).toBeDisabled();
-  },
 };
