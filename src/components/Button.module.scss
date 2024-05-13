@@ -3,10 +3,27 @@
 .button {
   background-color: white;
   border: $border-common;
+  width: auto;
+  text-align: center;
+}
+
+.button-medium {
   height: 3rem;
   min-width: 6rem;
-  padding: 0.5rem;
-  width: auto;
   font-size: $font-size-m;
-  text-align: center;
+  padding: 0.5rem;
+}
+
+.button-small {
+  height: 2rem;
+  min-width: 5rem;
+  font-size: $font-size-s;
+  padding: 0.1rem;
+}
+
+.button-large {
+  height: 4rem;
+  min-width: 7rem;
+  font-size: $font-size-l;
+  padding: 1rem;
 }

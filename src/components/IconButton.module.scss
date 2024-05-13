@@ -1,6 +1,16 @@
 @import "../styles/variables.scss";
 
 .icon {
-  height: $icon-size-m;
-  width: $icon-size-m;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.icon-small {
+  height: 2rem;
+  width: 2rem;
+}
+
+.icon-large {
+  height: 3rem;
+  width: 3rem;
 }
